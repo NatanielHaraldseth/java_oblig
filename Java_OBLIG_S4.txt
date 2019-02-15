@@ -10,3 +10,13 @@ Classes:
 		- Plunger
 		- Bumpers +
 		- target +
+-----------------------------------
+Ball:
+
+var = x, y
+var = final size
+met = liveball //gravity
+met = changeTrajectory
+met = checkCollide
+met = loadBall
+-----------------------------------
