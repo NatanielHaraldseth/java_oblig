@@ -34,9 +34,9 @@ public class Flipper extends Rectangle{
      * 
      * @param flipper A flipper must be a subclass of Rectangle, with x,y,width and height
      * 
-     * @param direction The enum direction decides if it is the right or left side of the flipper that flips
+     * @param rotation The enum direction decides if it is the right or left side of the flipper that flips
      */
-    public void flipTheFlipper(Flipper flipper, Direction direction){
+    public void flipTheFlipper(Flipper flipper, Rotation rotation){
         AnimationTimer timer2 = new AnimationTimer() {
                             double currentRotate = -20;
                             double increment = 10;
@@ -47,7 +47,7 @@ public class Flipper extends Rectangle{
                             
                             @Override
                             public void handle(long now) {
-                                if(direction == Direction.LEFT) {
+                                if(rotation == Rotation.LEFT) {
                                     if(currentRotate < MAX_ROTATE && !isUp) {
                                     flipper.getTransforms().add(new Rotate(-increment,flipper.getX(),flipper.getY()+(flipper.getHeight())/2));
                                     currentRotate += increment;
