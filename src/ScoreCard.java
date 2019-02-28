@@ -45,7 +45,7 @@ import java.io.PrintWriter;
 /*=============================================================================*/ 
 
     public void addScore(int score) {
-        this.score = score;
+        this.score += score;
     }
     
     public void setMultiplier(double multiplier) {
@@ -68,7 +68,7 @@ import java.io.PrintWriter;
     public void writeScoreToFile() {
         File file = new File("scores.txt");
         try(PrintWriter output = new PrintWriter(new FileWriter(file, true))){
-            output.println(" " + rank + "      " + username + "          " + score);
+            output.println(" " + rank + "      " + username + "          " + getScore());
         }catch(FileNotFoundException ex) {
             System.out.println("File: " + file + " does not exist");
         }catch(IOException ex) {
