@@ -68,9 +68,7 @@ import java.io.PrintWriter;
     public void writeScoreToFile() {
         File file = new File("scores.txt");
         try(PrintWriter output = new PrintWriter(new FileWriter(file, true))){
-            output.println("Rank   " + "Name                " + "Score");
             output.println(" " + rank + "      " + username + "          " + score);
-            output.println();
         }catch(FileNotFoundException ex) {
             System.out.println("File: " + file + " does not exist");
         }catch(IOException ex) {
