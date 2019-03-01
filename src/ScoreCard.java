@@ -75,7 +75,37 @@ import javafx.scene.control.TextArea;
     
 /*=============================================================================*/
     
-    //Read from score.txt and sort the top 10 based on score 
+    public TextArea readScoreFromFile(TextArea txtArea) {
+        ArrayList<ScoreCard> list = new ArrayList();
+        String line;
+        int listScore = 0;
+        String listUsername = "";
+        ScoreCard scoreCard;
+        int c = 0;
+        
+        try(Scanner reader = new Scanner(FILE)) {
+            while(reader.hasNextLine() && c < 10) {
+                line = reader.nextLine();
+                String[] items = line.split("-");
+                listUsername = items[0];
+                listScore = parseInt(items[1]);
+                scoreCard = new ScoreCard(listScore, listUsername);
+                list.add(scoreCard);
+            }
+            
+            Collections.sort(list);
+            for (ScoreCard scoreItems : list) {
+                c++;
+                if (c <= 10) {
+                    txtArea.appendText(rank++ + "       " +  scoreItems.getScore() + "             " + scoreItems.getUsername() + "\n");
+                }
+            }
+            
+        }catch(FileNotFoundException ex) {
+            System.out.println("File: " + FILE + " does not exist");
+        }
+        return txtArea;
+    } 
     
     //Add write score to file
     public void writeScoreToFile() {
