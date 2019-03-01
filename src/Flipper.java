@@ -6,38 +6,56 @@
 package springandflipper;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 
 /**
- * @version 2.0
+ * @version 2.4
  * @author Ove Simon Wernersson
  */
-public class Flipper extends Rectangle{
-    
-    
+public class Flipper extends Line{
+    private final Rotation rotation;
+    int rotate = 0;
     /**
-     * Constructor method that inherits from the superclass rectangle, therefore
-     * it makes a rectangle.
+     * Constructor method that inherits from the superclass line, therefore
+     * it makes a line.
      * 
-     * @param x The x position of the rectangle
-     * @param y The y position of the rectangle
-     * @param width The width of the rectangle, how wide you want the rectangle to be.
-     * @param height The height of the rectangle, how high you want the rectangle to be.
+     * @param rotation The enum direction decides if it is the right or left side of the flipper that flips
+     * @param startX The position which the line starts from horizontaly
+     * @param startY The postition which the line starts from vertically
+     * @param endX  The position which the line ends horizontally
+     * @param endY  The position which the line ends vertically
      */
-    public Flipper(double x, double y, double width, double height) {
-        super(x, y, width, height);
+    public Flipper(Rotation rotation, double startX, double startY, double endX, double endY) {      
+        super(startX, startY, endX, endY);
+        this.rotation = rotation;
+        if(rotation == Rotation.LEFT) {
+            this.setRotate(20);
+        } else if (rotation == Rotation.RIGHT) {
+            this.setRotate(-20);
+        }
+    }
+
+    /***
+     * 
+     * @return Returns the rotation direction of the flipper
+     */
+    public Rotation getRotation() {
+        return rotation;
     }
     
     /**
      * Moves the flipper in the right direction depending on the enum LEFT or RIGHT
      * 
-     * @param flipper A flipper must be a subclass of Rectangle, with x,y,width and height
+     * @param flipper A flipper must be a subclass of Line, with startX, startY, endX and endY parameters
      * 
-     * @param rotation The enum direction decides if it is the right or left side of the flipper that flips
+     * 
      */
-    public void flipTheFlipper(Flipper flipper, Rotation rotation){
+    public void flipTheFlipper(Flipper flipper){
+        
         AnimationTimer timer2 = new AnimationTimer() {
+
+                            
                             double currentRotate = -20;
                             double increment = 10;
                             final int MAX_ROTATE = 40;
@@ -47,39 +65,40 @@ public class Flipper extends Rectangle{
                             
                             @Override
                             public void handle(long now) {
+                                
                                 if(rotation == Rotation.LEFT) {
+                                    
                                     if(currentRotate < MAX_ROTATE && !isUp) {
-                                    flipper.getTransforms().add(new Rotate(-increment,flipper.getX(),flipper.getY()+(flipper.getHeight())/2));
+                                    flipper.getTransforms().add(new Rotate(-increment,flipper.getStartX(),flipper.getStartY()));
                                     currentRotate += increment;
-                                    if(currentRotate == MAX_ROTATE) {
-                                        isUp = true;
-                                    }
+                                        if(currentRotate == MAX_ROTATE) {
+                                            isUp = true;
+                                        }
                                    
                                     } else if(currentRotate > MIN_ROTATE && isUp) {
-                                        flipper.getTransforms().add(new Rotate(increment,flipper.getX(),flipper.getY()+(flipper.getHeight())/2));
+                                        flipper.getTransforms().add(new Rotate(increment,flipper.getStartX(),flipper.getStartY()));
                                         currentRotate -= increment;
-
                                     } 
                                 } else {
                                     if(currentRotate < MAX_ROTATE && !isUp) {
-                                    flipper.getTransforms().add(new Rotate(increment,flipper.getX()+flipper.getWidth(),flipper.getY()+(flipper.getHeight())/2));
+                                    flipper.getTransforms().add(new Rotate(increment,flipper.getEndX(),flipper.getEndY()));
                                     currentRotate += increment;
                                         if(currentRotate == MAX_ROTATE) {
                                             isUp = true;
                                         }
                                     }else if(currentRotate > MIN_ROTATE && isUp) {
-                                        flipper.getTransforms().add(new Rotate(-increment,flipper.getX()+flipper.getWidth(),flipper.getY()+ (flipper.getHeight())/2));
+                                        flipper.getTransforms().add(new Rotate(-increment,flipper.getEndX(),flipper.getEndY()));
                                         currentRotate -= increment;
 
                                     }
                                 }
                                 
                             }
-                            
+
                         };
                      timer2.start(); 
     }
     
-    
+
     
 }
