@@ -30,6 +30,15 @@ import javafx.scene.control.TextArea;
 
 /*=============================================================================*/ 
    
+	private ScoreCard(int score, String username) {
+        this.score = score;
+        this.username = username;
+    }
+    
+    public ScoreCard() {}
+
+/*=============================================================================*/
+   
     public int getScore() {
         return score;
     }
