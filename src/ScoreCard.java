@@ -10,6 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import javafx.scene.control.TextArea;
 
 /**
  *
