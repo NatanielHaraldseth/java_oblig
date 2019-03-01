@@ -117,6 +117,17 @@ import javafx.scene.control.TextArea;
             System.out.println("Error!");
         }
     }
+
+    @Override
+    public int compareTo(ScoreCard compareScoreCard) {
+        int compareScore = ((ScoreCard) compareScoreCard).getScore(); 
+		
+        //ascending order
+        //return this.score - compareScore;
+
+        //descending order
+        return compareScore - this.score;
+    }
     
     
 }//END OF CLASS
