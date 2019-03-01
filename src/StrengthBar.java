@@ -49,7 +49,7 @@ public class StrenghtBar extends Rectangle {
     /**
      * Stopping the progressbar, when mousebutton is released.
      * 
-     * @param text Text for changing status message
+     * @param text Text for changing status message.
      */
         public void progressStop(Text text) {
         moveProgress.stop();
@@ -59,5 +59,14 @@ public class StrenghtBar extends Rectangle {
             text.setText("");
         }
     }
+    /**
+     * Returns the currentHeight when bar is stopped, needed for speed on ball launch.
+     * @return currentHeight - double.
+     */
+    public double getCurrentHeight() {
+        return this.currentHeight;
+    }
+        
+    
     
 }
