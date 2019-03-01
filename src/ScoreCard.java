@@ -38,7 +38,7 @@ import javafx.scene.control.TextArea;
     public ScoreCard() {}
 
 /*=============================================================================*/
-   
+
     public int getScore() {
         return score;
     }
@@ -118,8 +118,5 @@ import javafx.scene.control.TextArea;
         }
     }
     
-    //Multiplies the score
-    public void addMultipliedScore(int score, double multiplier) {
-        this.score = score * (int)multiplier;
-    }
+    
 }//END OF CLASS
