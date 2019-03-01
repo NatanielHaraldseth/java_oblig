@@ -22,12 +22,11 @@ import javafx.scene.control.TextArea;
  */
  public class ScoreCard {
      
-    private int score = 1000000;
+    private int score;
     private double multiplier;
     private int rank = 1;
-    private String username = "Inversebeast"; //Placeholder
-    //Need player class completed in order to get playername
-    //and append name to score --> file 
+    private String username;
+    private static final File FILE = new File("scores.txt"); 
 
 /*=============================================================================*/ 
    
