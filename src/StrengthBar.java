@@ -9,12 +9,12 @@ import javafx.scene.text.Text;
  * @version 1.0
  * @author Ove Simon Wernersson
  */
-public class StrenghtBar extends Rectangle {
+public class StrengthBar extends Rectangle {
     private double currentHeight = 0;
     private AnimationTimer moveProgress;
     
     
-    public StrenghtBar(double x, double y, double width, double height) {
+    public StrengthBar(double x, double y, double width, double height) {
         super(x, y, width, height);
     }
     
