@@ -20,7 +20,7 @@ import javafx.scene.control.TextArea;
  *
  * @author Nataniel Haraldseth
  */
- public class ScoreCard {
+ public class ScoreCard implements Comparable<ScoreCard> {
      
     private int score;
     private double multiplier;
