@@ -109,13 +109,12 @@ import javafx.scene.control.TextArea;
     
     //Add write score to file
     public void writeScoreToFile() {
-        File file = new File("scores.txt");
-        try(PrintWriter output = new PrintWriter(new FileWriter(file, true))){
-            output.println(" " + rank + "      " + username + "          " + getScore());
+        try(PrintWriter output = new PrintWriter(new FileWriter(FILE, true))){
+            output.println(username + "-" + getScore());
         }catch(FileNotFoundException ex) {
-            System.out.println("File: " + file + " does not exist");
+            System.out.println("File: " + FILE + " does not exist");
         }catch(IOException ex) {
-            System.out.println("File: " + file + " does not exist");
+            System.out.println("Error!");
         }
     }
     
