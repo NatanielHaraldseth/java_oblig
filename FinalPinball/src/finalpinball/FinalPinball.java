@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Anders
+ * @author Anders Bærø & Isak Hauge
  */
 public class FinalPinball extends Application {
     
@@ -58,10 +58,15 @@ public class FinalPinball extends Application {
         Scene scene = new Scene(pane, VINDU, VINDU);
         
         themeSong.play();
+       
+        
+        /////////////////////////////////////////////////////////
+        ////////////////////Drawing the board////////////////////
+        /////////////////////////////////////////////////////////
+        
+        //Setting a background for the application.
         ImageView background = new ImageView("file:src/resources/images/bg.png");
         pane.getChildren().add(background);
-        
-        //Drawing the board
         
         //Arraylist for storing every shape used as an obstacle.
         ArrayList<Shape> obstacleArr = new ArrayList<Shape>();
@@ -71,10 +76,8 @@ public class FinalPinball extends Application {
         Ball b3 = new Ball(315, 250, 34);
         obstacleArr.add(b1);
         obstacleArr.add(b3);
-        
         b1.setVisible(false);
         b3.setVisible(false);
-        
         
         //Creates a "powerbar" to allow the user to 
         //decide for 'hen'self what kind of power they want.
@@ -99,6 +102,10 @@ public class FinalPinball extends Application {
         pane.getChildren().add(ball);
         
         //Creating polygon obstacle one
+        //Polygon lines are named poorly, but 
+        //we have named them pl for poly-line, and
+        //then numbered them. 1-3 is the first obstacle
+        //on the left hand side.
         Line pl1 = new Line(22, 463, 120, 610);
         pl1.setStrokeWidth(10);
         pl1.setStroke(Color.BLUE);
@@ -115,7 +122,8 @@ public class FinalPinball extends Application {
         obstacleArr.add(pl2);
         obstacleArr.add(pl3);
         
-        //Creating polygon obstacle two
+        //Creating polygon obstacle two on the
+        //right hand side.
         Line pl4 = new Line(433, 463, 337, 610);
         pl4.setStrokeWidth(10);
         pl4.setStroke(Color.RED);
@@ -132,7 +140,10 @@ public class FinalPinball extends Application {
         obstacleArr.add(pl5);
         obstacleArr.add(pl6);
         
+        
         //Drawing lower left corner
+        //Lines for each of the "corners" are named as
+        //LL = LowerLeft etc.
         Line lineLL = new Line(12, 634, 168, 788);
         lineLL.setStrokeWidth(10);
         lineLL.setStroke(Color.ORANGE);
@@ -198,7 +209,7 @@ public class FinalPinball extends Application {
         scoreText.setX(630);
         scoreText.setY(375);
         
-        //Create text for displaying score.
+        //Create text for displaying remaining lives.
         Text lifeText = new Text();
         lifeText.setFill(Color.WHITE);
         lifeText.setStyle("-fx-font-size: 18;");
@@ -216,6 +227,9 @@ public class FinalPinball extends Application {
         pane.getChildren().addAll(obstacleArr);
         
         
+        /////////////////////////////////////////////////////////
+        ////////////////////Game-over Scoreboard/////////////////
+        /////////////////////////////////////////////////////////
         
         //Scene that shows the highscore after game over.
         scoreScene = new Scene(new Group());
@@ -262,8 +276,17 @@ public class FinalPinball extends Application {
         }
         
         
-        //Animationtimer to apply gravity and collision-responses to 
-        //playing ball.
+        /////////////////////////////////////////////////////////
+        ////////////////////Playing the game/////////////////////
+        /////////////////////////////////////////////////////////
+        
+      /**
+        * AnimationTimer is what we used to get the ball 'alive'.
+        * This timer runs "forever" unless you use .stop();
+        * In this timer we call on methods in Ball that applies gravity
+        * and constantly checks for collisions with obstacles
+        * 
+        */
         timer = new AnimationTimer() {
             long lastUpdate = 0 ;
             
@@ -337,7 +360,6 @@ public class FinalPinball extends Application {
                 }else{
                     flipperSound.play();
                 }
-                
             
             }else if(e.getCode() == KeyCode.RIGHT){
                 rightFlipper.flipTheFlipper(rightFlipper);
@@ -351,20 +373,6 @@ public class FinalPinball extends Application {
         });
         
        
-        
-        
-        
-        
-        ball.setOnMouseReleased(e -> {
-                timer.start();
-        });
-        
-        ball.setOnMouseDragged(e -> {
-                ball.setCenterX(e.getX());
-                ball.setCenterY(e.getY());
-                timer.stop();
-        });
-        
         primaryStage.setTitle("Pinball");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -381,27 +389,33 @@ public class FinalPinball extends Application {
         launch(args);
     }
     
-    //Method to allow us to stop the timer, while still in the timer.
+   
+  /**
+    * Method to allow us to stop time timer while still in the timer.
+    * The timer can't directly call on itself while still running.
+    * So we had to make this method.
+    */
     private void stopTimer (){
         timer.stop();
     }
     
-    //Stops the animation, removes any planned movements 
-    //from the ball, and respawns it in proper location.
+   /**
+    * Stops the animation, removes any planned movements 
+    * from the ball, and respawns it in the launching "canon".
+    */
     private void initBall(Ball ball){
         stopTimer();
         ball.setChangeX(0);
         ball.setChangeY(0);
         ball.respawnBall(470, 720);
         timer.start();
-        
-        
-        
     }
-    
-    //Writes the score to the file, and shows top 10
-    //of prior achieved scores. Then clears the score for 
-    //a new game.
+  /**
+    * Writes the current players score to a score file, 
+    * and then reads every score from the file to determine the top
+    * 10 achieved scores. Then clears the score, and displays a new scene
+    * which displays the top 10 scores.
+    */
     private void gameOver(ScoreCard resultSet, TextArea txtArea){
         if(gameOverSound.getStatus() == MediaPlayer.Status.PLAYING){
             gameOverSound.stop();
@@ -409,7 +423,6 @@ public class FinalPinball extends Application {
         }else{
             gameOverSound.play();
         }
-        
         
         resultSet.writeScoreToFile();
         txtArea = resultSet.readScoreFromFile(txtArea);
@@ -419,7 +432,9 @@ public class FinalPinball extends Application {
         
     }
     
-    //Resets the scene, and ball.
+  /**
+    * Initializes the ball, and sets ball lives to 5 again.
+    */
     private void resetScene(Ball ball){
         initBall(ball);
         ball.setLives(5);
