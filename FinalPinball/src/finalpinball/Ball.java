@@ -49,34 +49,9 @@ public class Ball extends Circle{
        teller++;
        
     }
-
-    public double getElasticity() {
-        return elasticity;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public void setLives(int lives) {
-        this.lives = lives;
-    }
-
-    public double getChangeX() {
-        return changeX;
-    }
-
-    public double getChangeY() {
-        return changeY;
-    }
     
-    public void setChangeX(double changeX) {
-        this.changeX = changeX;
-    }
+    
 
-    public void setChangeY(double changeY) {
-        this.changeY = changeY;
-    }
     
   /**
     * @author Anders Bærø
@@ -124,6 +99,12 @@ public class Ball extends Circle{
         ball.setCenterY(Math.min(ball.getCenterY() + changeY, pane.getHeight() - ball.getRadius()));
                     
     }
+    
+    
+    
+    
+    
+    
     
     /**
     * @author Anders Bærø
@@ -351,6 +332,34 @@ public class Ball extends Circle{
         }else{
             tinktinkSound.play();
         }
+    }
+    
+    public double getElasticity() {
+        return elasticity;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public double getChangeX() {
+        return changeX;
+    }
+
+    public double getChangeY() {
+        return changeY;
+    }
+    
+    public void setChangeX(double changeX) {
+        this.changeX = changeX;
+    }
+
+    public void setChangeY(double changeY) {
+        this.changeY = changeY;
     }
 
 }
