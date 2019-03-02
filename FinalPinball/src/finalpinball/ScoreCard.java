@@ -30,7 +30,15 @@ import javafx.scene.control.TextArea;
 
 /*=============================================================================*/ 
    
-	private ScoreCard(int score, String username) {
+     /**
+     * Private constructor for internal use in class only.
+     * 
+     * @param score in order to keep track of current score.
+     * 
+     * @param takes in username to keep for further use.
+     * 
+     */
+    private ScoreCard(int score, String username) {
         this.score = score;
         this.username = username;
     }
@@ -79,6 +87,15 @@ import javafx.scene.control.TextArea;
     
 /*=============================================================================*/
     
+    /**
+     * 
+     * Method for reading score from file, returns textarea for usage where needed.
+     * Sorts users based on scores accompanied by rank.
+     * Utilizes private constructor for Score object creation.
+     * 
+     * @param TextArea takes a txtArea in for processing and adding elements to textarea. 
+     * 
+     */    
     public TextArea readScoreFromFile(TextArea txtArea) {
         ArrayList<ScoreCard> list = new ArrayList();
         String line;
@@ -111,7 +128,12 @@ import javafx.scene.control.TextArea;
         return txtArea;
     } 
     
-    //Add write score to file
+    /**
+     * 
+     * Writes score to file for storage, call upon method at end of score
+     * gathering for proper storage. Creates file on first use.
+     * 
+     */
     public void writeScoreToFile() {
         try(PrintWriter output = new PrintWriter(new FileWriter(FILE, true))){
             output.println(username + "-" + getScore());
@@ -121,7 +143,10 @@ import javafx.scene.control.TextArea;
             System.out.println("Error!");
         }
     }
-
+    
+    /**
+     * Implements compareTo method for object comparison and proper sorting of objects.
+     */
     @Override
     public int compareTo(ScoreCard compareScoreCard) {
         int compareScore = ((ScoreCard) compareScoreCard).getScore(); 
